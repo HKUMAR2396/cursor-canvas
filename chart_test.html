@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .chart-container { 
+            width: 400px; 
+            height: 300px; 
+            margin: 20px 0; 
+            border: 1px solid #ccc; 
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chart Rendering Test</h1>
+    
+    <div class="chart-container">
+        <h3>Test Chart 1 (Canvas 304)</h3>
+        <canvas id="304" width="400" height="250"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <h3>Test Chart 2 (Canvas 305)</h3>
+        <canvas id="305" width="400" height="250"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <h3>Test Chart 3 (Canvas 308)</h3>
+        <canvas id="308" width="400" height="220"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <h3>Test Chart 4 (Canvas 309)</h3>
+        <canvas id="309" width="200" height="200"></canvas>
+    </div>
+
+    <script>
+        console.log('Starting chart test...');
+        
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, Chart.js available:', typeof Chart !== 'undefined');
+            
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js not loaded!');
+                return;
+            }
+            
+            // Test Chart 1: TikTok Branding (304)
+            try {
+                const ctx304 = document.getElementById('304');
+                console.log('Canvas 304 found:', !!ctx304);
+                
+                if (ctx304) {
+                    const context304 = ctx304.getContext('2d');
+                    console.log('Canvas 304 context:', !!context304);
+                    
+                    const chart304 = new Chart(context304, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Increased Happiness', 'Increased Brand Choice'],
+                            datasets: [{
+                                label: 'Impact (%)',
+                                data: [57, 25],
+                                backgroundColor: ['#F6AD55', '#9F7AEA'],
+                                borderColor: ['#F6AD55', '#9F7AEA'],
+                                borderWidth: 1,
+                                borderRadius: 5,
+                                barPercentage: 0.6
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) { return value + '%' }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    console.log('Chart 304 created successfully:', chart304);
+                }
+            } catch (error) {
+                console.error('Error creating chart 304:', error);
+            }
+            
+            // Test Chart 2: GAC Orientation (305)
+            try {
+                const ctx305 = document.getElementById('305');
+                console.log('Canvas 305 found:', !!ctx305);
+                
+                if (ctx305) {
+                    const context305 = ctx305.getContext('2d');
+                    console.log('Canvas 305 context:', !!context305);
+                    
+                    const chart305 = new Chart(context305, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Multiple Orientations', 'Horizontal Only'],
+                            datasets: [{
+                                data: [113, 100],
+                                backgroundColor: ['#4299E1', '#E0E7FF'],
+                                borderColor: ['#4299E1', '#E0E7FF'],
+                                borderWidth: 2,
+                                hoverOffset: 8
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            cutout: '70%'
+                        }
+                    });
+                    console.log('Chart 305 created successfully:', chart305);
+                }
+            } catch (error) {
+                console.error('Error creating chart 305:', error);
+            }
+            
+            // Test Chart 3: AI Efficiency (308)
+            try {
+                const ctx308 = document.getElementById('308');
+                console.log('Canvas 308 found:', !!ctx308);
+                
+                if (ctx308) {
+                    const context308 = ctx308.getContext('2d');
+                    console.log('Canvas 308 context:', !!context308);
+                    
+                    const chart308 = new Chart(context308, {
+                        type: 'bar',
+                        data: {
+                            labels: ["Manual Video Prod.", "AI-Assisted Prod."],
+                            datasets: [{
+                                label: 'Time (minutes)',
+                                data: [240, 30],
+                                backgroundColor: ['#FC8181', '#68D391'],
+                                borderRadius: 5
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    ticks: { callback: (val) => `${val} min` }
+                                }
+                            }
+                        }
+                    });
+                    console.log('Chart 308 created successfully:', chart308);
+                }
+            } catch (error) {
+                console.error('Error creating chart 308:', error);
+            }
+            
+            // Test Chart 4: ROI Doughnut (309)
+            try {
+                const ctx309 = document.getElementById('309');
+                console.log('Canvas 309 found:', !!ctx309);
+                
+                if (ctx309) {
+                    const context309 = ctx309.getContext('2d');
+                    console.log('Canvas 309 context:', !!context309);
+                    
+                    const chart309 = new Chart(context309, {
+                        type: 'doughnut',
+                        data: {
+                            datasets: [{
+                                data: [727, 100],
+                                backgroundColor: ['#F6AD55', '#FDE68A'],
+                                borderWidth: 0,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            cutout: '80%',
+                            plugins: {
+                                tooltip: { enabled: false }
+                            }
+                        }
+                    });
+                    console.log('Chart 309 created successfully:', chart309);
+                }
+            } catch (error) {
+                console.error('Error creating chart 309:', error);
+            }
+        });
+    </script>
+</body>
+</html>

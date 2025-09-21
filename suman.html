@@ -157,7 +157,7 @@
                     <div class="order-1 lg:order-2 p-6 bg-white rounded-2xl shadow-xl gradient-border">
                          <h3 style="color: #667EEA;" class="text-lg font-bold text-center">The Power of Additive Branding</h3>
                          <p class="text-center text-sm mb-4" style="color: #A0AEC0;">Brand recognition in the first 2 seconds makes a huge impact.</p>
-                         <canvas id="304" style="max-height: 250px;"></canvas>
+                         <canvas id="304" width="400" height="250" style="max-height: 250px; width: 100%;"></canvas>
                     </div>
                 </div>
             </section>
@@ -168,7 +168,7 @@
                     <div class="p-6 bg-white rounded-2xl shadow-xl gradient-border">
                          <h3 style="color: #667EEA;" class="text-lg font-bold text-center">Maximizing Reach with Asset Variety</h3>
                          <p class="text-center text-sm mb-4" style="color: #A0AEC0;">Campaigns with mixed orientations see superior performance.</p>
-                         <canvas id="305" style="max-height: 250px;"></canvas>
+                         <canvas id="305" width="400" height="250" style="max-height: 250px; width: 100%;"></canvas>
                          <p class="text-xs text-center mt-4" style="color: #A0AEC0;">Specifically for YouTube Shorts, vertical video assets can drive 10-20% more conversions per dollar.</p>
                     </div>
                     <div>
@@ -236,14 +236,14 @@
                     <div class="lg:col-span-2 p-8 bg-white rounded-2xl shadow-xl flex flex-col justify-center">
                          <h3 style="color: #667EEA;" class="text-2xl font-bold text-center mb-4">Unlocking Hyper-Efficiency</h3>
                          <p class="text-center text-sm mb-6" style="color: #A0AEC0;">AI assistants reduce manual tasks by up to 70%, and managers report that AI tools cut video development time by 62%.</p>
-                         <canvas id="308" style="max-height: 220px;"></canvas>
+                         <canvas id="308" width="400" height="220" style="max-height: 220px; width: 100%;"></canvas>
                     </div>
                     <div class="lg:col-span-3 p-8 bg-white rounded-2xl shadow-xl gradient-border flex flex-col justify-center items-center">
                         <h3 style="color: #667EEA;" class="text-2xl font-bold text-center mb-1">From Efficiency to Enterprise Value</h3>
                         <p class="text-center text-sm mb-6" style="color: #A0AEC0;">These gains translate to measurable financial returns and positive business outcomes.</p>
                         <div class="w-full flex flex-col md:flex-row items-center justify-around gap-6">
                             <div class="relative w-48 h-48">
-                                <canvas id="309"></canvas>
+                                <canvas id="309" width="200" height="200" style="width: 100%; height: 100%;"></canvas>
                                 <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
                                     <span id="310" class="number-animate text-4xl font-black" style="color: #F6AD55;">0%</span>
                                     <span class="text-sm font-bold">ROI</span>
@@ -619,57 +619,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // --- CHART CONFIG & CREATION ---
-    const chartObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                console.log(`Canvas ${entry.target.id} is intersecting`);
-                // Check which chart is visible and create it
-                if (entry.target.id === '304' && !Chart.getChart('304')) {
-                    createTikTokChart();
-                }
-                if (entry.target.id === '305' && !Chart.getChart('305')) {
-                    createGACChart();
-                }
-                if (entry.target.id === '308' && !Chart.getChart('308')) {
-                    createEfficiencyChart();
-                }
-                if (entry.target.id === '309' && !Chart.getChart('309')) {
-                    createROIChart();
-                }
-                
-                // Stop observing once the chart is created
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 }); // Lower threshold to trigger earlier
+    // Create all charts immediately
+    console.log('Creating all charts immediately...');
     
-    // Attach observer to specific chart canvases
-    const canvasIds = ['304', '305', '308', '309'];
-    canvasIds.forEach(id => {
-        const canvas = document.getElementById(id);
-        if (canvas) {
-            console.log(`Observing canvas ${id}`);
-            chartObserver.observe(canvas);
-        } else {
-            console.error(`Canvas ${id} not found for observation`);
-        }
-    });
-
-    // Also create charts immediately if they're already visible
+    // Small delay to ensure DOM is fully rendered
     setTimeout(() => {
-        canvasIds.forEach(id => {
-            const canvas = document.getElementById(id);
-            if (canvas && !Chart.getChart(id)) {
-                const rect = canvas.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    console.log(`Canvas ${id} is already visible, creating chart immediately`);
-                    if (id === '304') createTikTokChart();
-                    if (id === '305') createGACChart();
-                    if (id === '308') createEfficiencyChart();
-                    if (id === '309') createROIChart();
-                }
-            }
-        });
+        createTikTokChart();
+        createGACChart();
+        createEfficiencyChart();
+        createROIChart();
     }, 100);
 });
 </script>
